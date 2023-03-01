@@ -3,6 +3,9 @@
 </script>
 
 <template>
+  <nav v-if="!this.$route.meta.isHidden">
+    <a href="">GitHub</a>
+  </nav>
   <div class="home d-flex justify-center align-center flex-column">
     <h1 class="home__logo">ToDo</h1>
     <p>Keep your tasks in one place</p>
@@ -16,6 +19,9 @@
 
 
 <style scoped lang="scss">
+  nav {
+    position: fixed;
+  }
   .home {
     transform: translateY(-5rem);
 
