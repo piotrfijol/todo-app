@@ -1,5 +1,6 @@
 <script>
 import Darkmodetoggle from '@/components/Darkmodetoggle.vue';
+import { RouterLink } from 'vue-router';
 
   export default {
     components: {
@@ -12,11 +13,13 @@ import Darkmodetoggle from '@/components/Darkmodetoggle.vue';
   <div class="home d-flex justify-center align-center flex-column">
     <h1 class="home__logo">ToDo</h1>
     <p>Keep your tasks in one place</p>
-    <v-btn
-      color="blue-grey"
-    >
-      Start
-    </v-btn>
+    <RouterLink to="/tasks">
+      <v-btn
+        color="blue-grey"
+      >
+        Start
+      </v-btn>
+    </RouterLink>
   </div>
 </template>
 
