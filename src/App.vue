@@ -1,13 +1,28 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router';
+<script>
+import { RouterView } from 'vue-router';
+import DarkmodeToggle from './components/DarkmodeToggle.vue';
+
+export default {
+  components: {
+    DarkmodeToggle,
+  },
+}
 </script>
 
 <template>
-
+  <nav v-if="!this.$route.meta.isHidden">
+    <DarkmodeToggle />
+    <a href="">GitHub</a>
+  </nav>
   <RouterView />
 </template>
 
 <style scoped>
+ nav {
+    position: fixed;
+    z-index: 999;
+  }
+
 header {
   line-height: 1.5;
   max-height: 100vh;
