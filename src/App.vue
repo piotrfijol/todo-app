@@ -12,15 +12,22 @@ export default {
 <template>
   <nav v-if="!this.$route.meta.isHidden">
     <DarkmodeToggle />
-    <a href="">GitHub</a>
+    <a href="" :style="{'margin-left':'3rem'}">GitHub</a>
   </nav>
   <RouterView />
 </template>
 
 <style scoped>
  nav {
+    width: 100%;
     position: fixed;
     z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    left: 0;
+    margin: 0;
+    padding: 1.8em 1em;
   }
 
 header {
@@ -33,25 +40,8 @@ header {
   margin: 0 auto 2rem;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
 nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+  margin-left: 1rem;
 }
 
 nav a:first-of-type {
@@ -75,13 +65,5 @@ nav a:first-of-type {
     flex-wrap: wrap;
   }
 
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
 }
 </style>
