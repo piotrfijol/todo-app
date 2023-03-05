@@ -8,20 +8,18 @@
                 <v-row>
                     <v-col
                         v-for="task, id in tasks"
-                        :key="id"
+                        :key="task.id"
                         cols="12"
                         xs="12"
                         md="6"
                         lg="4"
                     >
-                    <div 
-                        v-for="task in tasks" 
-                        class="task" 
-                        :key="task.id"
-                        :task="task"
-                        @delete="deleteTask"
-                        @toggle="toggleTaskStatus"
-                    ></div>
+                        <Task
+                            class="task" 
+                            :task="task"
+                            @delete="deleteTask"
+                            @toggle="toggleTaskStatus"
+                        />
                     </v-col>
                 </v-row>
             </template>
@@ -33,7 +31,12 @@
 </template>
 
 <script>
+import Task from '@/components/Task.vue';
+
     export default {
+        components: {
+            Task,
+        },
         data() {
             return {
                 tasks: []
@@ -44,13 +47,25 @@
         },
         methods: {
             getTasks() {
-                return [];
+                return [{
+                    id: 1,
+                    title: 'The task',
+                    description: 'task to do',
+                    isDone: false
+                }];
             },
             saveTasks() {
             },
             deleteTask(e, taskId) {
+                this.tasks = this.tasks.filter(el => el.id !== taskId);
+                
+                this.saveTasks();
             },
             toggleTaskStatus(e, taskId) {
+                const task = this.tasks.find(el => el.id === taskId);
+
+                task.isDone = !task.isDone;
+                this.saveTasks();
             }
         },
     }
