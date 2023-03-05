@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import anime from 'animejs/lib/anime.es';
+
     export default {
         props: {
             task: {
@@ -37,7 +39,21 @@
         },
         methods: {
             handleTaskToggle(e) {
-                this.$emit('toggle', e, this.task.id);
+                
+                if(!this.task.isDone) {
+                    anime({
+                        targets: `.task[data-id="${this.task.id}"]`,
+                        scale: [
+                            { value: 1, duration: 75, delay: 0},
+                            { value: 1.05, duration: 75, delay: 0},
+                            { value: 0.9, duration: 50, delay: 0},
+                            { value: 0.95, duration: 50, delay: 0},
+                            { value: 1, duration: 50, delay: 0}
+                        ],
+                        easing: 'linear',
+                        complete: () => this.$emit('toggle', e, this.task.id)
+                    });
+                } else {this.$emit('toggle', e, this.task.id);}
             },
             handleTaskDelete(e) {
                 this.$emit('delete', e, this.task.id);
