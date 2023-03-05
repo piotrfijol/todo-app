@@ -3,7 +3,7 @@ import { describe, test, expect, beforeEach, afterEach } from "vitest";
 import { mount } from "@vue/test-utils";
 import Task from "@/components/Task.vue";
 
-import { initVuetify } from '@/__tests__/setup';
+import { initVuetify, DOMCleanUp } from '@/__tests__/setup';
 
 
 describe("Task", () => {
@@ -28,9 +28,7 @@ describe("Task", () => {
     });
 
     afterEach(() => {
-        // DOM clean up
-        document.body.innerHTML = '';
-        document.body.replaceWith(document.createElement('body'));
+        DOMCleanUp();
     });
     
     test("renders", () => {

@@ -13,3 +13,9 @@ export function initVuetify() {
     return vuetify;
     
 };
+
+
+export function DOMCleanUp() {
+    document.body.innerHTML = '';
+    document.body.replaceWith(document.createElement('body'));
+}
