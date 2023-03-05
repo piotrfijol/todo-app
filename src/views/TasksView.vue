@@ -7,7 +7,7 @@
             <template v-if="tasks.length">
                 <v-row>
                     <v-col
-                        v-for="task, id in tasks"
+                        v-for="task in tasks"
                         :key="task.id"
                         cols="12"
                         xs="12"
@@ -39,22 +39,25 @@ import Task from '@/components/Task.vue';
         },
         data() {
             return {
-                tasks: []
+                tasks: [],
+                idCounter: 0
             }
         },
         mounted () {
-            this.tasks = this.getTasks();
+            const data = this.getData();
+            if(data) {
+                this.tasks = data.tasks;
+                this.idCounter = parseInt(data.idCounter);
+            }
         },
         methods: {
-            getTasks() {
-                return [{
-                    id: 1,
-                    title: 'The task',
-                    description: 'task to do',
-                    isDone: false
-                }];
+            getData() {
+                return JSON.parse(localStorage.getItem("app-data"));
             },
             saveTasks() {
+                const dataStr = JSON.stringify({tasks: this.tasks, idCounter: this.idCounter});
+
+                localStorage.setItem('app-data', dataStr);
             },
             deleteTask(e, taskId) {
                 this.tasks = this.tasks.filter(el => el.id !== taskId);
