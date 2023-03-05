@@ -13,6 +13,14 @@ describe("Task", () => {
     beforeEach(() => {
         vuetify = initVuetify();
         wrapper = mount(Task, {
+            props: {
+                task: {
+                    id: 1,
+                    title: 'The title of the task',
+                    description: 'task\'s description',
+                    isDone: false
+                }
+            },
             global: {
                 plugins: [vuetify]
             }
@@ -38,7 +46,7 @@ describe("Task", () => {
     test("emits toggle event", () => {
         wrapper.find('.toggle-btn').trigger('click');
 
-        expect(wrapper.emitted()).toHaveProperty('delete');
+        expect(wrapper.emitted()).toHaveProperty('toggle');
     });
 
 
