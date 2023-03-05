@@ -5,14 +5,14 @@
         </header>
         <div class="tasks">
             <template v-if="tasks.length">
-                <div 
+                <Task 
                     v-for="task in tasks" 
                     class="task" 
                     :key="task.id"
                     :task="task"
                     @delete="deleteTask"
                     @toggle="toggleTaskStatus"
-                ></div>
+                />
             </template>
             <template v-else>
                 <p>Could not find any tasks.</p>
@@ -22,7 +22,12 @@
 </template>
 
 <script>
+import Task from '@/components/Task.vue';
+
     export default {
+        components: {
+            Task,
+        },
         data() {
             return {
                 tasks: []
@@ -33,13 +38,25 @@
         },
         methods: {
             getTasks() {
-                return [];
+                return [{
+                    id: 1,
+                    title: 'The task',
+                    description: 'task to do',
+                    isDone: false
+                }];
             },
             saveTasks() {
             },
             deleteTask(e, taskId) {
+                this.tasks = this.tasks.filter(el => el.id !== taskId);
+                
+                this.saveTasks();
             },
             toggleTaskStatus(e, taskId) {
+                const task = this.tasks.find(el => el.id === taskId);
+
+                task.isDone = !task.isDone;
+                this.saveTasks();
             }
         },
     }
