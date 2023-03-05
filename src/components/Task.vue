@@ -46,6 +46,41 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+    .task {
+        width: auto !important;
+        flex: 1;
+        position: relative;
+        z-index: 10;
+        --completed-color: rgb(128, 189, 67);
+    }
+    
+    .task--done {
+        box-shadow: 0 0 0 5px var(--completed-color);
+    }
 
+    .task--done .task__checkmark {
+        color: var(--completed-color);
+    }
+
+    body.darkmode .task {
+      background-color: #5d6378;
+      color: #e5e5e5;
+    }
+
+    .action-buttons {
+        margin-left: auto;
+    }
+
+    .action-buttons > button {
+        border-radius: 50%;
+        font-size: .7rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 15px;
+        height: 26px;
+        margin-left: .2em;
+        background: transparent;
+    }
 </style>
