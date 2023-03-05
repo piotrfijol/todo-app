@@ -5,14 +5,25 @@
         </header>
         <div class="tasks">
             <template v-if="tasks.length">
-                <div 
-                    v-for="task in tasks" 
-                    class="task" 
-                    :key="task.id"
-                    :task="task"
-                    @delete="deleteTask"
-                    @toggle="toggleTaskStatus"
-                ></div>
+                <v-row>
+                    <v-col
+                        v-for="task, id in tasks"
+                        :key="id"
+                        cols="12"
+                        xs="12"
+                        md="6"
+                        lg="4"
+                    >
+                    <div 
+                        v-for="task in tasks" 
+                        class="task" 
+                        :key="task.id"
+                        :task="task"
+                        @delete="deleteTask"
+                        @toggle="toggleTaskStatus"
+                    ></div>
+                    </v-col>
+                </v-row>
             </template>
             <template v-else>
                 <p>Could not find any tasks.</p>
@@ -54,7 +65,11 @@
 
     p {
         text-align: center;
-        margin-top: 2rem;
         opacity: .8;
     }
+    .tasks {
+        text-align: left;
+        margin-top: 5rem;
+    }
+    
 </style>
