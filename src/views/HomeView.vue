@@ -17,6 +17,7 @@ import { RouterLink } from 'vue-router';
       <v-btn
         color="blue-grey"
       >
+        <v-icon class="icon">mdi-check-all</v-icon>
         Start
       </v-btn>
     </RouterLink>
@@ -25,10 +26,13 @@ import { RouterLink } from 'vue-router';
 
 
 <style scoped lang="scss">
+.icon {
+  margin-right: .3em;
+}
   .home {
     transform: translateY(-5rem);
 
-    &__logo, p {
+    &__logo {
       font-family: 'Patrick Hand';
     }
 
@@ -41,7 +45,7 @@ import { RouterLink } from 'vue-router';
     p {
       margin: .8rem 0;
       font-size: 24px;
-      letter-spacing: .05em;
+      font-weight: 200;
     }
 
   }
