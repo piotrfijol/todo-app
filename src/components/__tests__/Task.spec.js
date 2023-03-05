@@ -3,7 +3,7 @@ import { describe, test, expect, beforeEach, afterEach } from "vitest";
 import { mount } from "@vue/test-utils";
 import Task from "@/components/Task.vue";
 
-import { initVuetify } from './setup';
+import { initVuetify } from '@/__tests__/setup';
 
 
 describe("Task", () => {
