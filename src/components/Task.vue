@@ -12,15 +12,20 @@
                 <v-icon v-show="task.isDone" class="task__checkmark">mdi-check-all</v-icon>
                 <p :style="{overflow: 'hidden'}">{{ task.title }}</p>
                 <div class="action-buttons">
-                    <button class="toggle-btn"
+                    <button class="toggle-btn btn-icon"
                         @click="handleTaskToggle"
                     >
                         <v-icon icon="mdi-check"></v-icon>
                     </button>
-                    <button class="delete-btn" 
+                    <button class="delete-btn btn-icon" 
                         @click="handleTaskDelete">
                         <v-icon icon="mdi-delete"></v-icon>
                     </button>
+                    <EditTaskDialog 
+                        :task="task"
+                        :buttonClass="'btn-icon'"
+                        @edit="(taskId, taskData) => $emit('edit', taskId, taskData)"
+                    />
                 </div>
             </div>
         </template>
@@ -29,6 +34,7 @@
 
 <script>
 import anime from 'animejs/lib/anime.es';
+import EditTaskDialog from './EditTaskDialog.vue';
 
     export default {
         props: {
@@ -37,6 +43,10 @@ import anime from 'animejs/lib/anime.es';
                 default: {id: 0, title: '', description: '', isDone: false}
             },
         },
+        components: {
+    EditTaskDialog,
+    EditTaskDialog
+},
         methods: {
             handleTaskToggle(e) {
                 
@@ -62,7 +72,7 @@ import anime from 'animejs/lib/anime.es';
     }
 </script>
 
-<style scoped>
+<style>
     .task {
         width: auto !important;
         flex: 1;
@@ -72,7 +82,7 @@ import anime from 'animejs/lib/anime.es';
     }
     
     .task--done {
-        box-shadow: 0 0 0 5px var(--completed-color);
+        box-shadow: 0 0 0 5px var(--completed-color) !important;
     }
 
     .task--done .task__checkmark {
@@ -88,7 +98,7 @@ import anime from 'animejs/lib/anime.es';
         margin-left: auto;
     }
 
-    .action-buttons > button {
+    .action-buttons .btn-icon {
         border-radius: 50%;
         font-size: .7rem;
         display: inline-flex;
