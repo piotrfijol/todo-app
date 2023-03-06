@@ -65,6 +65,10 @@
 <script>
 
 export default {
+    updated () {
+        this.taskTitle =  this.task.title;
+        this.taskDescription = this.task.description
+    },
     props: {
         title: {
             type: String,

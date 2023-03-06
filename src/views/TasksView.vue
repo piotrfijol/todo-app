@@ -19,6 +19,7 @@
                             :task="task"
                             @delete="deleteTask"
                             @toggle="toggleTaskStatus"
+                            @edit="handleEditSave"
                         />
                     </v-col>
                 </v-row>
@@ -51,6 +52,20 @@ import Task from '@/components/Task.vue';
             }
         },
         methods: {
+            handleEditSave(taskId, taskData) {
+                const taskArrId = this.tasks.findIndex((el) => el.id === taskId);
+                this.merge(taskData, this.tasks[taskArrId]);
+                this.saveTasks();
+            },
+            merge(objSource, objDestination) {
+
+                // Merge doesn't apply to object values
+                for(let prop in objSource) {
+                    if(objDestination.hasOwnProperty(prop) && typeof objSource[prop] !== "object") {
+                        objDestination[prop] = objSource[prop];
+                    }
+                }
+            },
             getData() {
                 return JSON.parse(localStorage.getItem("app-data"));
             },
