@@ -81,6 +81,10 @@ import EditTaskDialog from './EditTaskDialog.vue';
         --completed-color: rgb(128, 189, 67);
     }
     
+    .task:hover {
+        cursor: grab;
+    }
+
     .task--done {
         box-shadow: 0 0 0 5px var(--completed-color) !important;
     }

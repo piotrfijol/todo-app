@@ -16,6 +16,12 @@
                         xs="12"
                         md="6"
                         lg="4"
+                        draggable="true"
+                        @dragstart="handleDragStart"
+                        @drop="handleDragEnd"
+                        @dragend="resetDrag"
+                        @dragenter.prevent
+                        @dragover.prevent
                     >
                         <Task
                             class="task" 
@@ -57,6 +63,29 @@ import CreateTaskDialog from '../components/CreateTaskDialog.vue';
             }
         },
         methods: {
+            resetDrag() {
+                if(this.draggedTask) {
+                    this.draggedTask.style.opacity = "1";
+                    this.draggedTask = null;
+                }
+            },
+            handleDragStart(e, id) {
+                this.draggedTask = e.currentTarget;
+                this.draggedTask.style.opacity = "0.001";
+            },
+            handleDragEnd(e, id) {
+                const draggedID = this.tasks.findIndex(el => el.id == this.draggedTask.children[0].dataset.id);
+                const droppedID = this.tasks.findIndex(el => el.id == e.currentTarget.children[0].dataset.id);
+                swap(this.tasks, draggedID, droppedID);
+
+                /* Swap two elements in an array */
+                function swap(arr, a, b) {
+                    [arr[a], arr[b]] = [arr[b], arr[a]];
+                }
+
+                this.resetDrag();
+                this.saveTasks();
+            },
             handleTaskCreate(newTask) {
                 
                 let task = {
