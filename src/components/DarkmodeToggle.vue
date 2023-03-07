@@ -7,10 +7,34 @@
 
 <script>
     export default {
+        props: {
+            isDarkmode: {
+                type: Boolean,
+                default: false
+            },
+        },
+        beforeUpdate() {
+            this.setColors()
+        },
         methods: {
+            setDarkmode() {
+                document.body.classList.add('darkmode');
+                this.$refs.toggle.classList.add('toggled');
+            },
+            setLightmode() {
+                document.body.classList.remove('darkmode')
+                this.$refs.toggle.classList.remove('toggled');                    
+            },
+            setColors() {
+                if(this.isDarkmode) {
+                    this.setDarkmode();
+                } else {
+                    this.setLightmode();
+                }
+            },
             handleToggle() {
-                document.body.classList.toggle('darkmode');
-                this.$refs.toggle.classList.toggle('toggled');
+                console.log(this.isDarkmode)
+                this.$emit('toggle:darkmode', !this.isDarkmode);
             }
         },
     }
