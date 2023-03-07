@@ -1,7 +1,10 @@
 <template>
     <div class="container">
-        <header class="header">
-            <h1>Tasks</h1>
+        <header class="header d-flex justify-center align-center">
+            <h1>Tasks</h1> 
+            <CreateTaskDialog 
+                @create="handleTaskCreate"
+            />
         </header>
         <div class="tasks">
             <template v-if="tasks.length">
@@ -33,11 +36,13 @@
 
 <script>
 import Task from '@/components/Task.vue';
+import CreateTaskDialog from '../components/CreateTaskDialog.vue';
 
     export default {
         components: {
-            Task,
-        },
+    Task,
+    CreateTaskDialog
+},
         data() {
             return {
                 tasks: [],
@@ -52,6 +57,18 @@ import Task from '@/components/Task.vue';
             }
         },
         methods: {
+            handleTaskCreate(newTask) {
+                
+                let task = {
+                    ...newTask,
+                    id: this.idCounter++,
+                    isDone: false
+                };
+
+                this.tasks.push(task);
+                this.saveTasks();
+            
+            },
             handleEditSave(taskId, taskData) {
                 const taskArrId = this.tasks.findIndex((el) => el.id === taskId);
                 this.merge(taskData, this.tasks[taskArrId]);
