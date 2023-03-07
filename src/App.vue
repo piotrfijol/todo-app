@@ -1,18 +1,38 @@
 <script>
 import { RouterView } from 'vue-router';
 import DarkmodeToggle from './components/DarkmodeToggle.vue';
+import GithubCorner from './components/GithubCorner.vue';
 
 export default {
   components: {
     DarkmodeToggle,
-  },
+    GithubCorner
+},
+data() {
+  return {
+    isDarkmode: false
+  }
+},
+mounted () {
+  let darkmodeValue = localStorage.getItem('darkmode');
+  this.isDarkmode = darkmodeValue === 'true';
+},
+methods: {
+  handleDarkmode(isDarkmode) {
+    this.isDarkmode = isDarkmode;
+    localStorage.setItem('darkmode', isDarkmode);
+  }
+},
 }
 </script>
 
 <template>
   <nav v-if="!this.$route.meta.isHidden">
-    <DarkmodeToggle />
-    <a href="" :style="{'margin-left':'3rem'}">GitHub</a>
+    <DarkmodeToggle :isDarkmode="isDarkmode" @toggle:darkmode="handleDarkmode"/>
+    <GithubCorner 
+      :isDarkmode="isDarkmode"
+      href="https://github.com/piotrfijol"
+    />
   </nav>
   <RouterView />
 </template>
